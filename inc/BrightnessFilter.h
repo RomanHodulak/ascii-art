@@ -1,0 +1,35 @@
+#ifndef ASCII_ART_BRIGHTNESSFILTER_H
+#define ASCII_ART_BRIGHTNESSFILTER_H
+
+#include "Filter.h"
+
+/**
+ * Increases or decreases pixel brightness.
+ */
+class BrightnessFilter : public Filter {
+public:
+
+	/**
+	 * Applies brightness multiplier to given pixel and prints it out.
+	 *
+	 * @param pixel Pixel to modify the brightness of.
+	 * @return Pixel with increased or decreased brightness.
+	 */
+	Pixel apply(const Pixel & pixel) const override;
+
+	/**
+	 * Adjusts brightness applied.
+	 *
+	 * @param brightness Brightness value.
+	 */
+	void setBrightness(double brightness);
+
+	/**
+	 * Gets brightness set.
+	 *
+	 * @return Brightness.
+	 */
+	double getBrightness();
+};
+
+#endif //ASCII_ART_BRIGHTNESSFILTER_H
