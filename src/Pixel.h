@@ -4,10 +4,10 @@
 #include <cinttypes>
 #include <cstdlib>
 
+/**
+ * Collection of color channels.
+ */
 class Pixel {
-private:
-	uint8_t * channels;
-
 public:
 
 	/**

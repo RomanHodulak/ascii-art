@@ -4,6 +4,9 @@
 #include <cstdio>
 #include "AsciiPrinter.h"
 
+/**
+ * Contains pixel matrix stored in memory.
+ */
 class Frame {
 public:
 

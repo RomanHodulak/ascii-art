@@ -21,18 +21,43 @@ public:
 	Pixel apply(const Pixel & pixel) const override;
 
 	/**
-	 * Pushes filter at the end of the queue.
+	 * Pushes filter to the end of the queue.
 	 *
+	 * @tparam Type that inherits class Filter.
 	 * @param filter Filter to push.
 	 */
-	void pushFilter(Filter * filter);
+	template <typename T>
+	void pushFilter(const T & filter);
 
 	/**
-	 * Gets mutable filter queue.
+	 * Swaps order of the filters by given indices.
 	 *
-	 * @return Filter queue.
+	 * @param first Filter that gets moved to second index.
+	 * @param second Filter that gets moved to first index.
 	 */
-	queue<Filter *> & getFilters() const;
+	void swapFilters(size_t first, size_t second);
+
+	/**
+	 * Removes filter by given index.
+	 *
+	 * @param index Index of the filter to remove.
+	 */
+	void removeFilter(size_t index);
+
+	/**
+	 * Gets count of filters.
+	 *
+	 * @return Filter count.
+	 */
+	size_t getFilterCount() const;
+
+	/**
+	 * Gets filter by index.
+	 *
+	 * @param index Index of the filter.
+	 * @return Filter instance pointer.
+	 */
+	Filter * getFilterAt(size_t index) const;
 };
 
 #endif //ASCII_ART_MULTIFILTER_H

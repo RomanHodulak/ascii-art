@@ -6,6 +6,9 @@
 
 using namespace std;
 
+/**
+ * Loads BMP files.
+ */
 class BmpImageSource : public StaticImageSource {
 protected:
 

@@ -5,7 +5,7 @@
 #include "ImageSource.h"
 
 /**
- * Determines what frame to render at certain time.
+ * Determines what frame to render at a certain time.
  */
 class Player {
 public:
