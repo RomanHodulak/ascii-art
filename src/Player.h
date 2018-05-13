@@ -18,8 +18,10 @@ public:
 
 	/**
 	 * Updates the internal timer.
+	 *
+	 * @param timestamp Current timestamp.
 	 */
-	void step();
+	void update(time_t timestamp);
 
 	/**
 	 * Gets current frame.
