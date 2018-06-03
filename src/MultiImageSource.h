@@ -8,14 +8,11 @@
  * source on the outside.
  */
 class MultiImageSource : public ImageSource {
-protected:
+private:
 
-	/**
-	 * Gets count of frames in all image sources combined.
-	 *
-	 * @return Count of frames in this image.
-	 */
-	size_t getFramesCountTotal() const override;
+	std::vector<ImageSource *> sources;
+
+protected:
 
 	/**
 	 * Gets frame at given index, searching over all of the image sources.
@@ -23,7 +20,7 @@ protected:
 	 * @param index Frame index.
 	 * @return Frame at given index.
 	 */
-	Frame & getFrameAt(size_t index) const override;
+	Frame & getFrameAt(size_t index) override;
 
 	/**
 	 * Pushes image source to the end of the queue.
@@ -63,6 +60,12 @@ protected:
 	 * @return Image source instance pointer.
 	 */
 	ImageSource * getSourceAt(size_t index) const;
+
+public:
+
+	MultiImageSource();
 };
+
+#include "MultiImageSource.tpp"
 
 #endif //ASCII_ART_MULTIIMAGESOURCE_H

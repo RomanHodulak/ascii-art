@@ -1,15 +1,18 @@
 #ifndef ASCII_ART_MULTIFILTER_H
 #define ASCII_ART_MULTIFILTER_H
 
-#include <queue>
+#include <vector>
 #include "Filter.h"
-
-using namespace std;
 
 /**
  * Combines several filters, applying them one by one in a queue.
  */
 class MultiFilter : public Filter {
+private:
+
+	/** Filters applied by this multi filter. */
+	std::vector<Filter *> filters;
+
 public:
 
 	/**
@@ -59,5 +62,7 @@ public:
 	 */
 	Filter * getFilterAt(size_t index) const;
 };
+
+#include "MultiFilter.tpp"
 
 #endif //ASCII_ART_MULTIFILTER_H

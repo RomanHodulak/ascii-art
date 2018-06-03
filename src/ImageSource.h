@@ -2,6 +2,7 @@
 #define ASCII_ART_ANIMATION_H
 
 #include <cstdlib>
+#include <vector>
 #include "Frame.h"
 
 /**
@@ -10,24 +11,29 @@
  * while implementors should return frames in the original order and count.
  */
 class ImageSource {
+private:
+
+	/** Total frames count, including the skipped ones. */
+	size_t framesCount;
+
+	/** Maps outside indices (counts swaps and exclusions) to actual indices. */
+	std::vector<size_t> indices;
+
 protected:
 
 	/**
-	 * Gets count of frames.
+	 * @param framesCount Total count of frames in this image (1 for static images).
+	 */
+	explicit ImageSource(size_t framesCount);
+
+public:
+
+	/**
+	 * Gets count of frames, including the skipped ones.
 	 *
 	 * @return Count of frames in this image.
 	 */
-	virtual size_t getFramesCountTotal() const = 0;
-
-	/**
-	 * Gets frame at given index.
-	 *
-	 * @param index Frame index.
-	 * @return Frame at given index.
-	 */
-	virtual Frame & getFrameAt(size_t index) const = 0;
-
-public:
+	size_t getFramesCountTotal() const;
 
 	/**
 	 * Gets count of frames, excluding the skipped frames.
@@ -42,7 +48,15 @@ public:
 	 * @param index Frame index.
 	 * @return Frame at given index.
 	 */
-	Frame & getFrame(size_t index) const;
+	Frame & getFrame(size_t index);
+
+	/**
+	 * Gets frame at given index. Ignores frame skipping and swapping.
+	 *
+	 * @param index Frame index.
+	 * @return Frame at given index.
+	 */
+	virtual Frame & getFrameAt(size_t index) = 0;
 
 	/**
 	 * Sets frame that currently posses given index as skipped. Index then references the next frame and all following

@@ -7,6 +7,11 @@
  * Increases or decreases pixel brightness.
  */
 class BrightnessFilter : public Filter {
+private:
+
+	/** Multiplies each channel. */
+	double brightness = 1.0;
+
 public:
 
 	/**

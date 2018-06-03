@@ -8,6 +8,14 @@
  * Determines what frame to render at a certain time.
  */
 class Player {
+private:
+
+	ImageSource & source;
+	unsigned long currentTime = 0;
+	unsigned int fps = 30;
+	double speed = 1.0;
+	bool playing = false;
+
 public:
 
 	/**
@@ -21,7 +29,7 @@ public:
 	 *
 	 * @param timestamp Current timestamp.
 	 */
-	void update(time_t timestamp);
+	void update(unsigned long timestamp);
 
 	/**
 	 * Gets current frame.
@@ -42,14 +50,14 @@ public:
 	 *
 	 * @param fps FPS to set.
 	 */
-	void setFramesPerSecond(size_t fps);
+	void setFramesPerSecond(unsigned int fps);
 
 	/**
 	 * Sets play speed, which is effectively an FPS multiplier. Set negative value to play backwards, or zero to freeze.
 	 *
 	 * @param speed Speed to set.
 	 */
-	void setSpeed(int speed);
+	void setSpeed(double speed);
 
 	/**
 	 * Pauses if animation is playing, resumes if paused.

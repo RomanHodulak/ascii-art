@@ -2,6 +2,7 @@
 #define ASCII_ART_ASCIIFILTER_H
 
 #include <cstdio>
+#include <map>
 #include "Filter.h"
 
 /**
@@ -15,20 +16,25 @@
  * ...
  */
 class AsciiPrinter {
+private:
+
+	std::map<unsigned short, char> characterMap;
+
 public:
 
 	/**
-	 * @param source File to get the map of int(0..255) whiteness to ASCII character.
+	 * @param source Filename to get the map of int(0..255) whiteness to ASCII character.
 	 */
-	explicit AsciiPrinter(FILE * source);
+	explicit AsciiPrinter(const std::string & source);
 
 	/**
 	 * Converts the pixel to ascii character and prints it out.
 	 *
 	 * @param output Output to print to.
 	 * @param pixel Pixel to filter.
+	 * @return Output stream given.
 	 */
-	void print(FILE * output, const Pixel & pixel) const;
+	std::ostream & print(std::ostream & output, const Pixel & pixel) const;
 };
 
 #endif //ASCII_ART_ASCIIFILTER_H

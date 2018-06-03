@@ -1,6 +1,7 @@
 #ifndef ASCII_ART_EDITOR_H
 #define ASCII_ART_EDITOR_H
 
+#include <ncurses.h>
 #include <string>
 #include <vector>
 
@@ -19,7 +20,14 @@ public:
 	 * @param files File names to load and display in the editor.
 	 */
 	template <typename Iterator>
-	void run(const Iterator & files);
+	void run(Iterator filesBegin, Iterator filesEnd);
+
+	/**
+	 * Releases allocated resources and closes ncurses window.
+	 */
+	~Editor();
 };
+
+#include "Editor.tpp"
 
 #endif //ASCII_ART_EDITOR_H

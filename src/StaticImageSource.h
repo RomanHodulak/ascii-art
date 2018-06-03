@@ -9,27 +9,22 @@
 class StaticImageSource : public ImageSource {
 protected:
 
-	/**
-	 * Gets count of frames in the image.
-	 *
-	 * @return Since this is a static image format, returns 1.
-	 */
-	size_t getFramesCountTotal() const override;
+	StaticImageSource();
 
 	/**
 	 * Gets frame at given index.
 	 *
-	 * @param index Frame index. Only valid index is 0.
+	 * @param index Frame index. For a static image, only valid index is 0.
 	 * @return Frame at given index.
 	 */
-	Frame & getFrameAt(size_t index) const override;
+	Frame & getFrameAt(size_t index) override;
 
 	/**
 	 * Gets the image frame.
 	 *
 	 * @return Image frame.
 	 */
-	virtual Frame & getFrame() const = 0;
+	virtual Frame & getFrame() = 0;
 };
 
 #endif //ASCII_ART_STATICIMAGESOURCE_H
