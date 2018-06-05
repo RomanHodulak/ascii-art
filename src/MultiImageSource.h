@@ -12,7 +12,7 @@ private:
 
 	std::vector<ImageSource *> sources;
 
-protected:
+public:
 
 	/**
 	 * Gets frame at given index, searching over all of the image sources.

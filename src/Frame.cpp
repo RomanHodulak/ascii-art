@@ -3,8 +3,8 @@
 using namespace std;
 
 ostream & Frame::print(ostream & output, const AsciiPrinter & printer, const Filter & filter) const {
-	for (size_t i = 0; i < width; ++i) {
-		for (size_t j = 0; j < height; ++j) {
+	for (size_t i = 0; i < this->height; ++i) {
+		for (size_t j = 0; j < this->width; ++j) {
 			printer.print(output, filter.apply(* this->pixels[i][j]));
 		}
 

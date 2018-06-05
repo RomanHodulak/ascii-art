@@ -4,9 +4,8 @@
 #include <string>
 #include <fstream>
 #include <cinttypes>
+#include <utility>
 #include "StaticImageSource.h"
-
-using namespace std;
 
 /**
  * Loads BMP files.
@@ -14,10 +13,20 @@ using namespace std;
 class BmpImageSource : public StaticImageSource {
 private:
 
-	/** File containing source BMP image. */
-	ifstream sourceFile;
+	struct FrameData {
+		int refCnt;
+		std::string filename;
+		Frame * frame = nullptr;
 
-	Frame * frame = nullptr;
+		explicit FrameData(const std::string & filename);
+
+		~FrameData();
+
+		template <typename Callable>
+		void loadFrame(Callable loader);
+	};
+
+	FrameData * data = nullptr;
 
 protected:
 
@@ -28,6 +37,8 @@ protected:
 	 */
 	Frame & getFrame() override;
 
+	Frame * loadFrame(std::istream & sourceStream) const;
+
 public:
 
 	/**
@@ -35,7 +46,19 @@ public:
 	 *
 	 * @param filename File name of the BMP.
 	 */
-	explicit BmpImageSource(const string & filename);
+	explicit BmpImageSource(const std::string & filename);
+
+	BmpImageSource(const BmpImageSource & source);
+
+	BmpImageSource & operator=(const BmpImageSource & source);
+
+	~BmpImageSource();
+
+	void attach(FrameData * data);
+
+	void detach();
 };
+
+#include "BmpImageSource.tpp"
 
 #endif //ASCII_ART_BMPIMAGESOURCE_H

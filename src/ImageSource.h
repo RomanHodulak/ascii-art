@@ -26,6 +26,8 @@ protected:
 	 */
 	explicit ImageSource(size_t framesCount);
 
+	void addIndices(size_t count);
+
 public:
 
 	/**

@@ -42,3 +42,9 @@ ImageSource::ImageSource(size_t framesCount) : framesCount(framesCount) {
 size_t ImageSource::getFramesCountTotal() const {
 	return this->framesCount;
 }
+
+void ImageSource::addIndices(size_t count) {
+	for (size_t i = 0; i < count; ++i) {
+		this->indices.push_back(this->indices.size());
+	}
+}

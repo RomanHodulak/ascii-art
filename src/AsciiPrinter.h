@@ -18,7 +18,7 @@
 class AsciiPrinter {
 private:
 
-	std::map<unsigned short, char> characterMap;
+	char characterMap [256] = {0};
 
 public:
 

@@ -5,5 +5,9 @@ int main(int argc, char * argv []) {
 	Editor editor;
 	vector<string> files;
 
+	for (int i = 1; i < argc; ++i) {
+		files.emplace_back(argv[i]);
+	}
+
 	editor.run(files.begin(), files.end());
 }
