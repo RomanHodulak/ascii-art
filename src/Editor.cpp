@@ -2,6 +2,9 @@
 
 Editor::Editor() {
 	this->keyMap[KEY_SPACE] = &Editor::commandTogglePlay;
+	this->keyMap[KEY_SPACE & CTRL_MASK] = &Editor::commandTogglePlayBackwards;
+	this->keyMap['f'] = &Editor::commandFpsInc;
+	this->keyMap['f' & CTRL_MASK] = &Editor::commandFpsDec;
 	this->keyMap[KEY_ESC] = &Editor::commandExit;
 	this->keyMap[KEY_UP] = &Editor::commandUp;
 	this->keyMap[KEY_DOWN] = &Editor::commandDown;
@@ -17,6 +20,10 @@ Editor::Editor() {
 
 void Editor::commandTogglePlay() {
 	this->player->togglePlay();
+}
+
+void Editor::commandTogglePlayBackwards() {
+	this->player->togglePlayBackwards();
 }
 
 void Editor::commandExit() {
@@ -104,4 +111,20 @@ void Editor::commandSkipFrame() {
 
 void Editor::commandSwapFrame() {
 	this->player->swapFrame();
+}
+
+void Editor::commandFpsInc() {
+	this->player->fpsInc();
+}
+
+void Editor::commandFpsDec() {
+	this->player->fpsDec();
+}
+
+Editor::~Editor() {
+	endwin();
+	delete this->clearRect;
+	delete this->player;
+	delete this->panel;
+	delete this->filterMenu;
 }

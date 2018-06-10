@@ -6,6 +6,7 @@
 #include <cinttypes>
 #include <utility>
 #include "StaticImageSource.h"
+#include "InvalidFileException.h"
 
 /**
  * Loads BMP files.
@@ -52,7 +53,7 @@ public:
 
 	BmpImageSource & operator=(const BmpImageSource & source);
 
-	~BmpImageSource();
+	~BmpImageSource() override;
 
 	void attach(FrameData * data);
 

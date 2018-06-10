@@ -5,7 +5,7 @@ int NCursesBuf::overflow(int c) {
 	int cury = getcury(stdscr);
 
 	if (c == '\n') {
-		if (cury >= (rect.height + rect.y) - 1 || cury >= getmaxy(stdscr) - 1) {
+		if (cury >= (rect.height + rect.y) || cury >= getmaxy(stdscr) - 1) {
 			// Ignore out of bounds
 			return 1;
 		}
@@ -21,7 +21,7 @@ int NCursesBuf::overflow(int c) {
 		|| cury >= (rect.height + rect.y)
 		|| curx < rect.x
 		|| curx >= (rect.width + rect.x)
-		|| curx >= getmaxx(stdscr)
+		|| curx >= getmaxx(stdscr) - 1 // last character inputs newline causing ASCII rendering issues
 		|| cury >= getmaxy(stdscr)
 	) {
 		// Ignore out of bounds

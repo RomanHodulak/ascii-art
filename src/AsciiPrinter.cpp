@@ -1,10 +1,16 @@
 #include <fstream>
+#include <cstring>
 #include "AsciiPrinter.h"
+#include "InvalidFileException.h"
 
 using namespace std;
 
 AsciiPrinter::AsciiPrinter(const string & source) {
 	ifstream sourceStream(source);
+
+	if (!sourceStream) {
+		throw InvalidFileException("MAP", source, strerror(errno));
+	}
 
 	int min = 256;
 	char minChar = 0;
@@ -18,7 +24,7 @@ AsciiPrinter::AsciiPrinter(const string & source) {
 		sourceStream >> ch;
 
 		if (code > 255 || code < 0) {
-			throw exception();
+			throw InvalidFileException("MAP", source, "ASCII code not in range 0..255");
 		}
 
 		if (code < min) {

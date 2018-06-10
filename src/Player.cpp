@@ -17,8 +17,19 @@ void Player::update(double deltaTimeMs) {
 	auto timePerFrame = this->getTimePerFrame();
 
 	if (this->elapsedTime >= timePerFrame) {
-		this->currentIndexToIndex += this->elapsedTime / timePerFrame;
-		this->currentIndexToIndex %= this->getPlayableFramesCount();
+		size_t amount = (size_t) (this->elapsedTime / timePerFrame) % this->getPlayableFramesCount();
+
+		if (this->speed > 0) {
+			this->currentIndexToIndex += amount;
+			this->currentIndexToIndex %= this->getPlayableFramesCount();
+		}
+		else {
+			if (this->currentIndexToIndex < amount) {
+				this->currentIndexToIndex += this->getPlayableFramesCount();
+			}
+			this->currentIndexToIndex -= amount;
+		}
+
 		this->currentIndex = this->indicesToIndices[this->currentIndexToIndex];
 		this->elapsedTime -= (this->elapsedTime / timePerFrame) * timePerFrame;
 	}
@@ -48,12 +59,16 @@ bool Player::plays() const {
 	return this->playing;
 }
 
+bool Player::playsBackwards() const {
+	return this->playing && this->speed < 0;
+}
+
 double Player::getTotalTime() const {
 	return (this->getPlayableFramesCount()) * this->getTimePerFrame();
 }
 
 double Player::getTimePerFrame() const {
-	return (1000.0 / (this->fps * this->speed));
+	return (1000.0 / (this->fps * abs(this->speed)));
 }
 
 void Player::nextFrame() {
@@ -132,4 +147,12 @@ bool Player::isSkipped(size_t index) const {
 	}
 
 	return !binary_search(this->indicesToIndices.begin(), this->indicesToIndices.end(), index);
+}
+
+uint Player::getFramesPerSecond() const {
+	return this->fps;
+}
+
+double Player::getSpeed() const {
+	return this->speed;
 }

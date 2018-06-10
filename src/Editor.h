@@ -5,10 +5,11 @@
 #include <string>
 #include <vector>
 #include "ui/PlayerControl.h"
-#include "ui/SidePanelControl.h"
+#include "ui/FilterPanelControl.h"
 #include "ui/FilterMenuControl.h"
 
 #define KEY_SPACE ' '
+#define CTRL_MASK 31
 #define KEY_ESC 27
 
 using namespace std;
@@ -32,7 +33,7 @@ private:
 	PlayerControl * player = nullptr;
 
 	/** Control that enables user to view and edit filters used. */
-	SidePanelControl * panel = nullptr;
+	FilterPanelControl * panel = nullptr;
 
 	/** Control that enables user to choose a new filter. */
 	FilterMenuControl * filterMenu = nullptr;
@@ -44,6 +45,7 @@ private:
 	Rectangle * clearRect = nullptr;
 
 	void commandTogglePlay();
+	void commandTogglePlayBackwards();
 	void commandExit();
 	void commandUp();
 	void commandDown();
@@ -61,19 +63,24 @@ private:
 	void commandLeaveFilterEdit();
 	void commandSkipFrame();
 	void commandSwapFrame();
+	void commandFpsInc();
+	void commandFpsDec();
 
 public:
 
 	Editor();
 
+	~Editor();
+
 	/**
 	 * Runs the editor. Editor keeps running until user quits it (by pressing ESC).
 	 *
 	 * @tparam Iterator Forward iterator of strings.
+	 * @param map File name of the map.
 	 * @param files File names to load and display in the editor.
 	 */
 	template <typename Iterator>
-	void run(Iterator filesBegin, Iterator filesEnd);
+	void run(const std::string & map, Iterator filesBegin, Iterator filesEnd);
 
 	/**
 	 * Marks an area to be cleared before rendering. Gets cleared only once.

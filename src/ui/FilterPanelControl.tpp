@@ -1,7 +1,7 @@
 #include <functional>
 
 template <typename T>
-void SidePanelControl::addFilterItem(
+void FilterPanelControl::addFilterItem(
 	const std::string & title,
 	const T & filter
 ) {
@@ -10,7 +10,7 @@ void SidePanelControl::addFilterItem(
 }
 
 template <typename T>
-void SidePanelControl::addFilterItem(
+void FilterPanelControl::addFilterItem(
 	const std::string & title,
 	const T & filter,
 	double (T::* getter)(),

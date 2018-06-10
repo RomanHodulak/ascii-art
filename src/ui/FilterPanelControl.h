@@ -9,7 +9,7 @@
 #include "../MultiFilter.h"
 #include <functional>
 
-class SidePanelControl : public Control {
+class FilterPanelControl : public Control {
 private:
 
 	struct FilterMenuItem {
@@ -25,7 +25,7 @@ private:
 
 public:
 
-	explicit SidePanelControl(const Rectangle & rect);
+	explicit FilterPanelControl(const Rectangle & rect);
 
 	Control * clone() const override;
 
@@ -59,6 +59,6 @@ public:
 	void leaveEditMode();
 };
 
-#include "SidePanelControl.tpp"
+#include "FilterPanelControl.tpp"
 
 #endif //ASCII_ART_FILTERPANELCONTROL_H

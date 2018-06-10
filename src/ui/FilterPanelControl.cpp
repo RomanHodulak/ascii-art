@@ -1,16 +1,16 @@
-#include "SidePanelControl.h"
+#include "FilterPanelControl.h"
 
 using namespace std;
 
-SidePanelControl::SidePanelControl(const Rectangle & rect)
+FilterPanelControl::FilterPanelControl(const Rectangle & rect)
 	: Control(rect) {
 }
 
-Control * SidePanelControl::clone() const {
-	return new SidePanelControl(* this);
+Control * FilterPanelControl::clone() const {
+	return new FilterPanelControl(* this);
 }
 
-std::ostream & SidePanelControl::print(std::ostream & out) {
+std::ostream & FilterPanelControl::print(std::ostream & out) {
 	out << " Filters" << endl;
 
 	for (int i = 0; i < this->rect.width; ++i) {
@@ -52,22 +52,22 @@ std::ostream & SidePanelControl::print(std::ostream & out) {
 	return out;
 }
 
-void SidePanelControl::up() {
+void FilterPanelControl::up() {
 	if (this->selectedIndex-- == 0) {
 		this->selectedIndex = this->filterMenuItems.size() - 1;
 	}
 }
 
-void SidePanelControl::down() {
+void FilterPanelControl::down() {
 	++this->selectedIndex;
 	this->selectedIndex %= this->filterMenuItems.size();
 }
 
-const MultiFilter & SidePanelControl::getFilter() const {
+const MultiFilter & FilterPanelControl::getFilter() const {
 	return this->filter;
 }
 
-void SidePanelControl::deleteSelected() {
+void FilterPanelControl::deleteSelected() {
 	if (this->selectedIndex > 0) {
 		this->filter.removeFilter(this->selectedIndex);
 		this->filterMenuItems.erase(this->filterMenuItems.begin() + this->selectedIndex);
@@ -78,7 +78,7 @@ void SidePanelControl::deleteSelected() {
 	}
 }
 
-bool SidePanelControl::editSelected() {
+bool FilterPanelControl::editSelected() {
 	if (this->editMode) return false;
 
 	if (this->filterMenuItems[this->selectedIndex].setter != nullptr) {
@@ -88,16 +88,16 @@ bool SidePanelControl::editSelected() {
 	return this->editMode;
 }
 
-void SidePanelControl::leaveEditMode() {
+void FilterPanelControl::leaveEditMode() {
 	this->editMode = false;
 }
 
-void SidePanelControl::editInc() {
+void FilterPanelControl::editInc() {
 	double val = this->filterMenuItems[this->selectedIndex].getter(this->filter.getFilterAt(this->selectedIndex));
 	this->filterMenuItems[this->selectedIndex].setter(this->filter.getFilterAt(this->selectedIndex), val + 0.1);
 }
 
-void SidePanelControl::editDec() {
+void FilterPanelControl::editDec() {
 	double val = this->filterMenuItems[this->selectedIndex].getter(this->filter.getFilterAt(this->selectedIndex));
 	this->filterMenuItems[this->selectedIndex].setter(this->filter.getFilterAt(this->selectedIndex), val - 0.1);
 }

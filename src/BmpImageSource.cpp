@@ -1,5 +1,6 @@
 #include <bits/ios_base.h>
 #include "BmpImageSource.h"
+#include "InvalidFileException.h"
 
 #define BI_RGB 0
 
@@ -89,13 +90,13 @@ Frame * BmpImageSource::loadFrame(istream & sourceStream) const {
 	sourceStream.read((char *) & header.importantColors, 4);
 
 	if (header.magic != 0x4D42) {
-		throw exception(); // Not a bmp file
+		throw InvalidFileException("BMP", this->data->filename, "Not a BMP file");
 	}
 	if (header.compression != BI_RGB) {
-		throw exception(); // Compression is not supported
+		throw InvalidFileException("BMP", this->data->filename, "Compression used in the bitmap is not supported");
 	}
 	if (header.bitsPerPixel != 24) {
-		throw exception(); // Only RGB, 8bit per channel is supported
+		throw InvalidFileException("BMP", this->data->filename, "Only RGB, 8bits per channel bitmaps are supported");
 	}
 
 	vector<Pixel> buffer;

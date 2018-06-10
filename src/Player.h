@@ -104,6 +104,11 @@ public:
 	bool plays() const;
 
 	/**
+	 * @return TRUE if animation plays in reverse, FALSE if paused.
+	 */
+	bool playsBackwards() const;
+
+	/**
 	 * Skips over to the next frame.
 	 */
 	void nextFrame();
@@ -121,6 +126,7 @@ public:
 	 * @param index Index of the frame to skip.
 	 */
 	void skipFrame(size_t index);
+
 	void unskipFrame(size_t index);
 
 	/**
@@ -143,7 +149,12 @@ public:
 	 * @return TRUE if current frame is skipped, FALSE if not.
 	 */
 	bool isSkipped() const;
+
 	bool isSkipped(size_t index) const;
+
+	double getSpeed() const;
+
+	uint getFramesPerSecond() const;
 };
 
 #endif //ASCII_ART_PLAYER_H

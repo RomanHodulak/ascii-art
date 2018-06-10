@@ -7,11 +7,11 @@
 #include "InvertFilter.h"
 #include "BrightnessFilter.h"
 #include "ui/PlayerControl.h"
-#include "ui/SidePanelControl.h"
+#include "ui/FilterPanelControl.h"
 #include "ui/FilterMenuControl.h"
 
 template <typename Iterator>
-void Editor::run(Iterator filesBegin, Iterator filesEnd) {
+void Editor::run(const std::string & map, Iterator filesBegin, Iterator filesEnd) {
 	const static int panelWidth = 25;
 	const static double clocksPerMs = CLOCKS_PER_SEC / 1000;
 
@@ -27,7 +27,7 @@ void Editor::run(Iterator filesBegin, Iterator filesEnd) {
 	raw();
 	curs_set(0);
 
-	AsciiPrinter printer("examples/map.txt");
+	AsciiPrinter printer(map);
 
 	MultiImageSource images;
 	for (Iterator it = filesBegin; it != filesEnd; ++it) {
@@ -39,7 +39,7 @@ void Editor::run(Iterator filesBegin, Iterator filesEnd) {
 
 	int screenWidth = getmaxx(stdscr);
 	int screenHeight = getmaxy(stdscr);
-	this->panel = new SidePanelControl(Rectangle(0, 0, panelWidth, screenHeight));
+	this->panel = new FilterPanelControl(Rectangle(0, 0, panelWidth, screenHeight));
 	this->player = new PlayerControl(Rectangle(panelWidth, 0, screenWidth - panelWidth, screenHeight), images, printer, panel->getFilter());
 	this->filterMenu = new FilterMenuControl(Rectangle(10, 10, 70, 10));
 

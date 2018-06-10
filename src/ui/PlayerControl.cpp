@@ -18,6 +18,18 @@ void PlayerControl::prevFrame() {
 
 void PlayerControl::togglePlay() {
 	this->player.togglePlay();
+
+	if (this->player.getSpeed() < 0) {
+		this->player.setSpeed(-this->player.getSpeed());
+	}
+}
+
+void PlayerControl::togglePlayBackwards() {
+	this->player.togglePlay();
+
+	if (this->player.getSpeed() > 0) {
+		this->player.setSpeed(-this->player.getSpeed());
+	}
 }
 
 void PlayerControl::toggleSkippedFrame() {
@@ -45,17 +57,27 @@ Control * PlayerControl::clone() const {
 }
 
 std::ostream & PlayerControl::print(std::ostream & out) {
-	out << ' ' << (this->player.plays() ? "▶" : "\u23F8")
-		<< "   Frame: " << this->player.getCurrentIndex() << '/' << this->player.getFramesCount()
+	if (this->player.playsBackwards()) {
+		out << "◀";
+	}
+	else if (this->player.plays()) {
+		out << "▶";
+	}
+	else {
+		out << "\u23F8";
+	}
+
+	out << "  FPS: " << this->player.getFramesPerSecond()
+		<< "  Frame: " << (this->player.getCurrentIndex() + 1) << '/' << this->player.getFramesCount()
 		<< (this->player.isSkipped()
 			? " (skipped)"
 	 		: "          ")
 		<< (this->swapping
 			? " (swapping frame " + std::to_string(this->swapped) + ", select other frame)"
-	 		: "                                          ")
+	 		: "                                            ")
 		<< std::endl;
 
-	for (int i = this->rect.x; i < this->rect.width; ++i) {
+	for (int i = 0; i < this->rect.width; ++i) {
 		out << "═";
 	}
 	out << std::endl;
@@ -65,4 +87,14 @@ std::ostream & PlayerControl::print(std::ostream & out) {
 
 void PlayerControl::update(double deltaTime) {
 	this->player.update(deltaTime);
+}
+
+void PlayerControl::fpsInc() {
+	this->player.setFramesPerSecond(this->player.getFramesPerSecond() + 1);
+}
+
+void PlayerControl::fpsDec() {
+	if (this->player.getFramesPerSecond() > 0) {
+		this->player.setFramesPerSecond(this->player.getFramesPerSecond() - 1);
+	}
 }

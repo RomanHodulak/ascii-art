@@ -38,6 +38,12 @@ public:
 	Control * clone() const override;
 
 	std::ostream & print(std::ostream & out) override;
+
+	void togglePlayBackwards();
+
+	void fpsInc();
+
+	void fpsDec();
 };
 
 #endif //ASCII_ART_PLAYERCONTROL_H
