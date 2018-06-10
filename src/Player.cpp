@@ -18,7 +18,7 @@ void Player::update(double deltaTimeMs) {
 
 	if (this->elapsedTime >= timePerFrame) {
 		this->currentIndexToIndex += this->elapsedTime / timePerFrame;
-		this->currentIndexToIndex %= this->indicesToIndices.size();
+		this->currentIndexToIndex %= this->getPlayableFramesCount();
 		this->currentIndex = this->indicesToIndices[this->currentIndexToIndex];
 		this->elapsedTime -= (this->elapsedTime / timePerFrame) * timePerFrame;
 	}
@@ -49,7 +49,7 @@ bool Player::plays() const {
 }
 
 double Player::getTotalTime() const {
-	return (this->indicesToIndices.size()) * this->getTimePerFrame();
+	return (this->getPlayableFramesCount()) * this->getTimePerFrame();
 }
 
 double Player::getTimePerFrame() const {
@@ -78,15 +78,31 @@ void Player::skipFrame(size_t index) {
 		throw exception();
 	}
 
-	if (binary_search(this->indicesToIndices.begin(), this->indicesToIndices.end(), index)) {
+	if (!this->isSkipped(index)) {
 		auto it = lower_bound(this->indicesToIndices.begin(), this->indicesToIndices.end(), index);
 		this->indicesToIndices.erase(it);
+	}
+}
+
+void Player::unskipFrame(size_t index) {
+	if (index >= this->source.getFramesCount()) {
+		throw exception();
+	}
+
+	if (this->isSkipped(index)) {
+		this->indicesToIndices.emplace(
+			lower_bound(this->indicesToIndices.begin(), this->indicesToIndices.end(), index),
+			index
+		);
 	}
 }
 
 void Player::swapFrames(size_t first, size_t second) {
 	if (max(first, second) >= this->indices.size()) {
 		throw exception();
+	}
+	if (first == second) {
+		return;
 	}
 
 	auto tmp = this->indices[first];
@@ -102,6 +118,18 @@ size_t Player::getFramesCount() const {
 	return this->indices.size();
 }
 
+size_t Player::getPlayableFramesCount() const {
+	return this->indicesToIndices.size();
+}
+
 bool Player::isSkipped() const {
-	return !binary_search(this->indicesToIndices.begin(), this->indicesToIndices.end(), this->getCurrentIndex());
+	return this->isSkipped(this->getCurrentIndex());
+}
+
+bool Player::isSkipped(size_t index) const {
+	if (index >= this->source.getFramesCount()) {
+		throw exception();
+	}
+
+	return !binary_search(this->indicesToIndices.begin(), this->indicesToIndices.end(), index);
 }

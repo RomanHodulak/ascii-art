@@ -8,6 +8,8 @@ Editor::Editor() {
 	this->keyMap[KEY_LEFT] = &Editor::commandLeft;
 	this->keyMap[KEY_RIGHT] = &Editor::commandRight;
 	this->keyMap[KEY_DC] = &Editor::commandDelete;
+	this->keyMap['x'] = &Editor::commandSkipFrame;
+	this->keyMap['s'] = &Editor::commandSwapFrame;
 	this->keyMap['a'] = &Editor::commandShowFilterMenu;
 	this->keyMap['\r'] = &Editor::commandAccept;
 	this->keyMap['\n'] = &Editor::commandAccept;
@@ -94,4 +96,12 @@ void Editor::commandEditFilterDown() {
 void Editor::commandLeaveFilterEdit() {
 	this->panel->leaveEditMode();
 	this->overridenKeyMap.clear();
+}
+
+void Editor::commandSkipFrame() {
+	this->player->toggleSkippedFrame();
+}
+
+void Editor::commandSwapFrame() {
+	this->player->swapFrame();
 }

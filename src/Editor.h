@@ -59,6 +59,8 @@ private:
 	void commandEditFilterUp();
 	void commandEditFilterDown();
 	void commandLeaveFilterEdit();
+	void commandSkipFrame();
+	void commandSwapFrame();
 
 public:
 

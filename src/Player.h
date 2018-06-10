@@ -121,6 +121,7 @@ public:
 	 * @param index Index of the frame to skip.
 	 */
 	void skipFrame(size_t index);
+	void unskipFrame(size_t index);
 
 	/**
 	 * Swaps the two frames.
@@ -134,12 +135,15 @@ public:
 
 	size_t getFramesCount() const;
 
+	size_t getPlayableFramesCount() const;
+
 	/**
 	 * Checks if current frame is skipped.
 	 *
 	 * @return TRUE if current frame is skipped, FALSE if not.
 	 */
 	bool isSkipped() const;
+	bool isSkipped(size_t index) const;
 };
 
 #endif //ASCII_ART_PLAYER_H

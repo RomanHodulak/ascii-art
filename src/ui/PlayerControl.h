@@ -11,6 +11,8 @@ private:
 	Player player;
 	const AsciiPrinter & printer;
 	const Filter & filter;
+	size_t swapped = 0;
+	bool swapping = false;
 
 public:
 
