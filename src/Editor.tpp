@@ -96,8 +96,8 @@ void Editor::run(Iterator filesBegin, Iterator filesEnd) {
 			windowBuf.setBoundaries(* this->clearRect);
 			windowBuf.resetPos();
 
-			for (size_t i = 0; i < this->clearRect->height; ++i) {
-				for (size_t j = 0; j < this->clearRect->width; ++j) {
+			for (int i = 0; i < this->clearRect->height; ++i) {
+				for (int j = 0; j < this->clearRect->width; ++j) {
 					windowStream << ' ';
 				}
 				windowStream << std::endl;
