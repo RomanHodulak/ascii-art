@@ -35,13 +35,13 @@ void MultiImageSource::swapSources(size_t first, size_t second) {
 	this->sources[second] = tmp;
 }
 
-Frame & MultiImageSource::getFrameAt(size_t index) {
+Frame & MultiImageSource::getFrame(size_t index) {
 	size_t counter = 0;
 
 	for (auto & source : this->sources) {
-		for (size_t j = 0; j < source->getFramesCountTotal(); ++j) {
+		for (size_t j = 0; j < source->getFramesCount(); ++j) {
 			if (counter == index) {
-				return source->getFrameAt(j);
+				return source->getFrame(j);
 			}
 
 			++counter;
@@ -49,4 +49,38 @@ Frame & MultiImageSource::getFrameAt(size_t index) {
 	}
 
 	throw exception();
+}
+
+void MultiImageSource::dispose() {
+	for (ImageSource * source : this->sources) {
+		delete source;
+	}
+}
+
+void MultiImageSource::copyFrom(const MultiImageSource & pixel) {
+	this->sources.clear();
+	for (ImageSource * source : pixel.sources) {
+		this->sources.push_back(source->clone());
+	}
+}
+
+ImageSource * MultiImageSource::clone() const {
+	return new MultiImageSource(* this);
+}
+
+MultiImageSource::MultiImageSource(const MultiImageSource & source) : ImageSource(source) {
+	this->copyFrom(source);
+}
+
+MultiImageSource & MultiImageSource::operator=(const MultiImageSource & source) {
+	if (this != &source) {
+		this->dispose();
+		this->copyFrom(source);
+	}
+
+	return * this;
+}
+
+MultiImageSource::~MultiImageSource() {
+	this->dispose();
 }

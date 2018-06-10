@@ -1,21 +1,31 @@
 #include "Player.h"
+#include <cstdlib>
+#include <numeric>
+#include <algorithm>
 
-Player::Player(ImageSource & source) : source(source) {
+using namespace std;
+
+Player::Player(ImageSource & source) : source(source), indices(source.getFramesCount()), indicesToIndices(source.getFramesCount()) {
+	iota(indices.begin(), indices.end(), 0);
+	iota(indicesToIndices.begin(), indicesToIndices.end(), 0);
 }
 
-void Player::update(unsigned long timestamp) {
-	if (!this->playing) return;
+void Player::update(double deltaTimeMs) {
+	if (!this->plays()) return;
 
-	this->currentTime += timestamp;
+	this->elapsedTime += deltaTimeMs;
+	auto timePerFrame = this->getTimePerFrame();
+
+	if (this->elapsedTime >= timePerFrame) {
+		this->currentIndexToIndex += this->elapsedTime / timePerFrame;
+		this->currentIndexToIndex %= this->indicesToIndices.size();
+		this->currentIndex = this->indicesToIndices[this->currentIndexToIndex];
+		this->elapsedTime -= (this->elapsedTime / timePerFrame) * timePerFrame;
+	}
 }
 
 const Frame & Player::getFrame() {
-	double timePerFrame = (1000.0 / fps * speed);
-	double totalTime = this->source.getFramesCount() * timePerFrame;
-	this->currentTime %= (size_t) totalTime;
-	size_t index = (size_t) (this->currentTime / timePerFrame);
-
-	return this->source.getFrame(index);
+	return this->source.getFrame(this->indices.at(this->currentIndex));
 }
 
 void Player::changeSource(ImageSource & source) {
@@ -34,6 +44,64 @@ void Player::togglePlay() {
 	this->playing = !this->playing;
 }
 
-bool Player::plays() {
+bool Player::plays() const {
 	return this->playing;
+}
+
+double Player::getTotalTime() const {
+	return (this->indicesToIndices.size()) * this->getTimePerFrame();
+}
+
+double Player::getTimePerFrame() const {
+	return (1000.0 / (this->fps * this->speed));
+}
+
+void Player::nextFrame() {
+	++this->currentIndex;
+	this->currentIndex %= this->indices.size();
+
+	auto it = lower_bound(this->indicesToIndices.begin(), this->indicesToIndices.end(), this->currentIndex);
+	this->currentIndexToIndex = (size_t) (it - this->indicesToIndices.begin());
+}
+
+void Player::prevFrame() {
+	if (this->currentIndex-- == 0) {
+		this->currentIndex = this->indices.size() - 1;
+	}
+
+	auto it = lower_bound(this->indicesToIndices.begin(), this->indicesToIndices.end(), this->currentIndex);
+	this->currentIndexToIndex = (size_t) (it - this->indicesToIndices.begin());
+}
+
+void Player::skipFrame(size_t index) {
+	if (index >= this->source.getFramesCount()) {
+		throw exception();
+	}
+
+	if (binary_search(this->indicesToIndices.begin(), this->indicesToIndices.end(), index)) {
+		auto it = lower_bound(this->indicesToIndices.begin(), this->indicesToIndices.end(), index);
+		this->indicesToIndices.erase(it);
+	}
+}
+
+void Player::swapFrames(size_t first, size_t second) {
+	if (max(first, second) >= this->indices.size()) {
+		throw exception();
+	}
+
+	auto tmp = this->indices[first];
+	this->indices[first] = this->indices[second];
+	this->indices[second] = tmp;
+}
+
+size_t Player::getCurrentIndex() const {
+	return this->currentIndex;
+}
+
+size_t Player::getFramesCount() const {
+	return this->indices.size();
+}
+
+bool Player::isSkipped() const {
+	return !binary_search(this->indicesToIndices.begin(), this->indicesToIndices.end(), this->getCurrentIndex());
 }

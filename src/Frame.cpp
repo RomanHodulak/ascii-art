@@ -1,3 +1,4 @@
+#include <ncurses.h>
 #include "Frame.h"
 
 using namespace std;

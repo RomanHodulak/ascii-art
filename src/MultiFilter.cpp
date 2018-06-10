@@ -23,7 +23,7 @@ void MultiFilter::swapFilters(size_t first, size_t second) {
 }
 
 void MultiFilter::removeFilter(size_t index) {
-	if (this->filters.size() >= index) {
+	if (index >= this->filters.size()) {
 		throw exception();
 	}
 
@@ -35,9 +35,47 @@ size_t MultiFilter::getFilterCount() const {
 }
 
 Filter * MultiFilter::getFilterAt(size_t index) const {
-	if (this->filters.size() >= index) {
+	if (index >= this->filters.size()) {
 		throw exception();
 	}
 
 	return this->filters.at(index);
+}
+
+std::string MultiFilter::getName() const {
+	return "Multi (" + this->getFilterCount() + ')';
+}
+
+MultiFilter::MultiFilter(const MultiFilter & filter) {
+	this->copyFrom(filter);
+}
+
+MultiFilter & MultiFilter::operator=(const MultiFilter & filter) {
+	if (this != &filter) {
+		this->dispose();
+		this->copyFrom(filter);
+	}
+
+	return * this;
+}
+
+MultiFilter::~MultiFilter() {
+	this->dispose();
+}
+
+void MultiFilter::dispose() {
+	for (Filter * filter : this->filters) {
+		delete filter;
+	}
+}
+
+void MultiFilter::copyFrom(const MultiFilter & pixel) {
+	this->filters.clear();
+	for (Filter * filter : this->filters) {
+		this->filters.push_back(filter->clone());
+	}
+}
+
+Filter * MultiFilter::clone() const {
+	return new MultiFilter(* this);
 }

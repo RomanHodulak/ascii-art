@@ -98,18 +98,30 @@ Frame * BmpImageSource::loadFrame(istream & sourceStream) const {
 		throw exception(); // Only RGB, 8bit per channel is supported
 	}
 
-	size_t pixelCount = header.width * header.height;
 	vector<Pixel> buffer;
 	sourceStream.seekg(header.offset);
 
-	for (size_t i = 0; i < pixelCount; ++i) {
-		unsigned char channels [3];
-		sourceStream.read((char *) &channels, 3);
+	size_t rowSize = (((header.bitsPerPixel * header.width + 31) / 32) * 4);
 
-		buffer.emplace_back(Pixel(channels, channels + 3));
+	for (size_t j = 0; j < header.height; ++j) {
+		for (size_t i = 0; i < (header.width * 3); i += 3) {
+			unsigned char channels [3];
+			sourceStream.read((char *) & channels, 3);
+
+			buffer.emplace_back(Pixel(channels, channels + 3));
+		}
+
+		// Skip padding, if any
+		if ((header.width * 3) < rowSize) {
+			sourceStream.seekg(rowSize - (header.width * 3), std::ios::cur);
+		}
 	}
 
-	return new Frame(header.width, header.height, buffer.begin(), buffer.end());
+	return new Frame(header.width, header.height, buffer.rbegin(), buffer.rend());
+}
+
+ImageSource * BmpImageSource::clone() const {
+	return new BmpImageSource(* this);
 }
 
 BmpImageSource::FrameData::FrameData(const string & filename) {

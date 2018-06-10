@@ -12,7 +12,23 @@ private:
 
 	std::vector<ImageSource *> sources;
 
+	/**
+	 * Releases allocated resources.
+	 */
+	void dispose();
+
+	/**
+	 * Copies data from another instance.
+	 */
+	void copyFrom(const MultiImageSource & pixel);
+
 public:
+
+	MultiImageSource(const MultiImageSource & source);
+
+	MultiImageSource & operator=(const MultiImageSource & source);
+
+	~MultiImageSource();
 
 	/**
 	 * Gets frame at given index, searching over all of the image sources.
@@ -20,7 +36,7 @@ public:
 	 * @param index Frame index.
 	 * @return Frame at given index.
 	 */
-	Frame & getFrameAt(size_t index) override;
+	Frame & getFrame(size_t index) override;
 
 	/**
 	 * Pushes image source to the end of the queue.
@@ -60,6 +76,8 @@ public:
 	 * @return Image source instance pointer.
 	 */
 	ImageSource * getSourceAt(size_t index) const;
+
+	ImageSource * clone() const override;
 
 public:
 

@@ -1,7 +1,7 @@
 all: compile doc
 
 compile:
-	g++ -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lncursesw src/*.cpp -o hodulrom
+	g++ -std=c++11 -Wall -pedantic -Wno-long-long -O0 -ggdb -lncursesw src/*.cpp src/**/*.cpp -o hodulrom
 
 run:
 	./hodulrom

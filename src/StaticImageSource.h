@@ -17,7 +17,7 @@ protected:
 	 * @param index Frame index. For a static image, only valid index is 0.
 	 * @return Frame at given index.
 	 */
-	Frame & getFrameAt(size_t index) override;
+	Frame & getFrame(size_t index) override;
 
 	/**
 	 * Gets the image frame.

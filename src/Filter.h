@@ -10,6 +10,8 @@
 class Filter {
 public:
 
+	virtual ~Filter() = default;
+
 	/**
 	 * Applies this filter to a copy of given pixel and returns it.
 	 *
@@ -17,6 +19,10 @@ public:
 	 * @return Modified pixel.
 	 */
 	virtual Pixel apply(const Pixel & pixel) const = 0;
+
+	virtual std::string getName() const = 0;
+
+	virtual Filter * clone() const = 0;
 };
 
 #endif //ASCII_ART_FILTER_H

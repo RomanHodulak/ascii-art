@@ -14,6 +14,10 @@ private:
 
 public:
 
+	BrightnessFilter() = default;
+
+	explicit BrightnessFilter(double brightness);
+
 	/**
 	 * Applies brightness multiplier to given pixel and prints it out.
 	 *
@@ -35,6 +39,10 @@ public:
 	 * @return Brightness.
 	 */
 	double getBrightness();
+
+	std::string getName() const override;
+
+	Filter * clone() const override;
 };
 
 #endif //ASCII_ART_BRIGHTNESSFILTER_H

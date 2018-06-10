@@ -16,6 +16,10 @@ public:
 	 * @return Inverted pixel.
 	 */
 	Pixel apply(const Pixel & pixel) const override;
+
+	std::string getName() const override;
+
+	Filter * clone() const override;
 };
 
 #endif //ASCII_ART_INVERTFILTER_H

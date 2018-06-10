@@ -57,6 +57,8 @@ public:
 	void attach(FrameData * data);
 
 	void detach();
+
+	ImageSource * clone() const override;
 };
 
 #include "BmpImageSource.tpp"

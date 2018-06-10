@@ -12,8 +12,7 @@ Frame::Frame(size_t width, size_t height, Iterator pixelsBegin, Iterator pixelsE
 				throw std::exception();
 			}
 
-			this->pixels[i][j] = new Pixel(* pixelsBegin);
-			++pixelsBegin;
+			this->pixels[i][j] = new Pixel(* pixelsBegin++);
 		}
 	}
 }

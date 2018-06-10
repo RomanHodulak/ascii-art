@@ -11,3 +11,15 @@ double BrightnessFilter::getBrightness() {
 Pixel BrightnessFilter::apply(const Pixel & pixel) const {
 	return pixel * this->brightness;
 }
+
+BrightnessFilter::BrightnessFilter(double brightness) {
+	this->setBrightness(brightness);
+}
+
+std::string BrightnessFilter::getName() const {
+	return "Brightness";
+}
+
+Filter * BrightnessFilter::clone() const {
+	return new BrightnessFilter(* this);
+}

@@ -2,11 +2,13 @@
 #include "InvertFilter.h"
 
 Pixel InvertFilter::apply(const Pixel & pixel) const {
-	std::vector<unsigned short> channels(pixel.getChannelsCount());
+	return pixel * -1.0;
+}
 
-	for (size_t i = 0; i < pixel.getChannelsCount(); ++i) {
-		channels[i] = (unsigned short) -(pixel.getChannel(i) - 255);
-	}
+std::string InvertFilter::getName() const {
+	return "Invert";
+}
 
-	return Pixel(channels.begin(), channels.end());
+Filter * InvertFilter::clone() const {
+	return new InvertFilter(* this);
 }

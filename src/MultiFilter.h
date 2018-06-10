@@ -13,7 +13,25 @@ private:
 	/** Filters applied by this multi filter. */
 	std::vector<Filter *> filters;
 
+	/**
+	 * Releases allocated resources.
+	 */
+	void dispose();
+
+	/**
+	 * Copies data from another instance.
+	 */
+	void copyFrom(const MultiFilter & pixel);
+
 public:
+
+	MultiFilter() = default;
+
+	MultiFilter(const MultiFilter & filter);
+
+	MultiFilter & operator=(const MultiFilter & filter);
+
+	~MultiFilter();
 
 	/**
 	 * Applies all of the filters one by one to a copy of given pixel and returns the result.
@@ -61,6 +79,10 @@ public:
 	 * @return Filter instance pointer.
 	 */
 	Filter * getFilterAt(size_t index) const;
+
+	std::string getName() const override;
+
+	Filter * clone() const override;
 };
 
 #include "MultiFilter.tpp"

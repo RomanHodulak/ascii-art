@@ -9,3 +9,11 @@ Pixel GreyscaleFilter::apply(const Pixel & pixel) const {
 
 	return Pixel({greyscale});
 }
+
+std::string GreyscaleFilter::getName() const {
+	return "Greyscale";
+}
+
+Filter * GreyscaleFilter::clone() const {
+	return new GreyscaleFilter(* this);
+}

@@ -11,8 +11,20 @@
 class Pixel {
 private:
 
+	typedef unsigned short channel;
+	static const channel CHANNEL_MAX = 255;
 	size_t channelCount;
-	unsigned short * channels;
+	channel * channels;
+
+	/**
+	 * Releases allocated resources.
+	 */
+	void dispose();
+
+	/**
+	 * Copies data from another instance.
+	 */
+	void copyFrom(const Pixel & pixel);
 
 public:
 
@@ -21,7 +33,7 @@ public:
 	 *
 	 * @param values Channels of the pixel.
 	 */
-	Pixel(std::initializer_list<unsigned short> values);
+	Pixel(std::initializer_list<channel> values);
 
 	/**
 	 * Constructs pixel with given channels.
@@ -62,7 +74,7 @@ public:
 	 * @param index Channel index.
 	 * @return Channel at given index.
 	 */
-	unsigned short getChannel(size_t index) const;
+	channel getChannel(size_t index) const;
 
 	/**
 	 * Multiplies pixel channels with given multiplier.
