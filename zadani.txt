@@ -23,5 +23,6 @@ Ovládání:
 * Ctrl + F: Snížení snímkové frekvence.
 * X: Označení/odznačení aktuálního snímku jako přeskočen (smazán) z přehrávání.
 * S: Označit snímek k prohození. Stisk poprvé označí jeden snímek, stisk podruhé označí druhý snímek, se kterým se první vymění.
-* Enter: Provést akci v menu.
+* A: Přidat filtr obrázku.
+* Enter: Provést akci v menu (upravit vybranou položku, potvrdit výběr...).
 * Delete: Smazání vybraného filtru.
