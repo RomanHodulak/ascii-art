@@ -51,7 +51,7 @@ MultiFilter::MultiFilter(const MultiFilter & filter) {
 }
 
 MultiFilter & MultiFilter::operator=(const MultiFilter & filter) {
-	if (this != &filter) {
+	if (this != & filter) {
 		this->dispose();
 		this->copyFrom(filter);
 	}

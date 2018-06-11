@@ -20,7 +20,7 @@ Frame::Frame(const Frame & frame) {
 }
 
 Frame & Frame::operator=(const Frame & frame) {
-	if (this != &frame) {
+	if (this != & frame) {
 		this->dispose();
 		this->copyFrom(frame);
 	}
@@ -52,8 +52,8 @@ void Frame::dispose() {
 			delete this->pixels[i][j];
 		}
 
-		delete [] this->pixels[i];
+		delete[] this->pixels[i];
 	}
 
-	delete [] this->pixels;
+	delete[] this->pixels;
 }

@@ -22,7 +22,7 @@ public:
 	/**
 	 * Releases dynamically allocated resources, if any.
 	 */
-	virtual ~Control();
+	virtual ~Control() = default;
 
 	/**
 	 * Copies the control.

@@ -18,7 +18,7 @@
 class AsciiPrinter {
 private:
 
-	char characterMap [256] = {0};
+	char characterMap[256] = {0};
 
 public:
 

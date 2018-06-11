@@ -54,7 +54,7 @@ Pixel::Pixel(const Pixel & pixel) {
 }
 
 Pixel & Pixel::operator=(const Pixel & pixel) {
-	if (this != &pixel) {
+	if (this != & pixel) {
 		this->dispose();
 		this->copyFrom(pixel);
 	}
@@ -63,7 +63,7 @@ Pixel & Pixel::operator=(const Pixel & pixel) {
 }
 
 void Pixel::dispose() {
-	delete [] this->channels;
+	delete[] this->channels;
 }
 
 void Pixel::copyFrom(const Pixel & pixel) {

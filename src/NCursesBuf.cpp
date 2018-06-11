@@ -23,7 +23,7 @@ int NCursesBuf::overflow(int c) {
 		|| curx >= (rect.width + rect.x)
 		|| curx >= getmaxx(stdscr) - 1 // last character inputs newline causing ASCII rendering issues
 		|| cury >= getmaxy(stdscr)
-	) {
+		) {
 		// Ignore out of bounds
 		return 1;
 	}

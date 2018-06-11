@@ -45,25 +45,45 @@ private:
 	Rectangle * clearRect = nullptr;
 
 	void commandTogglePlay();
+
 	void commandTogglePlayBackwards();
+
 	void commandExit();
+
 	void commandUp();
+
 	void commandDown();
+
 	void commandLeft();
+
 	void commandRight();
+
 	void commandShowFilterMenu();
+
 	void commandCloseFilterMenu();
+
 	void commandFilterMenuAccept();
+
 	void commandFilterMenuUp();
+
 	void commandFilterMenuDown();
+
 	void commandDelete();
+
 	void commandAccept();
+
 	void commandEditFilterUp();
+
 	void commandEditFilterDown();
+
 	void commandLeaveFilterEdit();
+
 	void commandSkipFrame();
+
 	void commandSwapFrame();
+
 	void commandFpsInc();
+
 	void commandFpsDec();
 
 public:

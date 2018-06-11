@@ -119,14 +119,18 @@ public:
 	void prevFrame();
 
 	/**
-	 * Sets frame that currently posses given index as skipped. Index then references the next frame and all following
-	 * indices are decremented by one. If given index is last, then no frame will posses given index and others remain
-	 * unchanged.
+	 * Sets frame that currently posses given index as skipped. It can still be manually displayed but it is skipped
+	 * by the animation playback.
 	 *
 	 * @param index Index of the frame to skip.
 	 */
 	void skipFrame(size_t index);
 
+	/**
+	 * Reverts the effects of skipping the frame, if it is skipped.
+	 *
+	 * @param index Index of the frame to un-skip.
+	 */
 	void unskipFrame(size_t index);
 
 	/**
@@ -137,10 +141,25 @@ public:
 	 */
 	void swapFrames(size_t first, size_t second);
 
+	/**
+	 * Gets current frame index.
+	 *
+	 * @return Current frame index.
+	 */
 	size_t getCurrentIndex() const;
 
+	/**
+	 * Gets total count of frames.
+	 *
+	 * @return Count of frames in the animation.
+	 */
 	size_t getFramesCount() const;
 
+	/**
+	 * Gets total count of frames, excluding the skipped ones.
+	 *
+	 * @return Count of frames in the animation displayed by the playback.
+	 */
 	size_t getPlayableFramesCount() const;
 
 	/**
@@ -150,10 +169,26 @@ public:
 	 */
 	bool isSkipped() const;
 
+	/**
+	 * Checks if a frame is skipped.
+	 *
+	 * @param index Index of the frame to check.
+	 * @return TRUE if current frame is skipped, FALSE if not.
+	 */
 	bool isSkipped(size_t index) const;
 
+	/**
+	 * Gets the speed of playback. Sign of the value is a direction, positive means forwards, negative means backwards.
+	 *
+	 * @return The playback speed and direction.
+	 */
 	double getSpeed() const;
 
+	/**
+	 * Gets current FPS set.
+	 *
+	 * @return Frame per second used for playback.
+	 */
 	uint getFramesPerSecond() const;
 };
 

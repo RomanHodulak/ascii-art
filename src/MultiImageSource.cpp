@@ -73,7 +73,7 @@ MultiImageSource::MultiImageSource(const MultiImageSource & source) : ImageSourc
 }
 
 MultiImageSource & MultiImageSource::operator=(const MultiImageSource & source) {
-	if (this != &source) {
+	if (this != & source) {
 		this->dispose();
 		this->copyFrom(source);
 	}

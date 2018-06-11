@@ -1,4 +1,4 @@
-#include <bits/exception.h>
+#include <exception>
 #include "StaticImageSource.h"
 
 using namespace std;

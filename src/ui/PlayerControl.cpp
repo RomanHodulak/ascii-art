@@ -58,27 +58,27 @@ Control * PlayerControl::clone() const {
 
 std::ostream & PlayerControl::print(std::ostream & out) {
 	if (this->player.playsBackwards()) {
-		out << "◀";
+		out << "Reverse";
 	}
 	else if (this->player.plays()) {
-		out << "▶";
+		out << "Plays  ";
 	}
 	else {
-		out << "\u23F8";
+		out << "Paused ";
 	}
 
 	out << "  FPS: " << this->player.getFramesPerSecond()
 		<< "  Frame: " << (this->player.getCurrentIndex() + 1) << '/' << this->player.getFramesCount()
 		<< (this->player.isSkipped()
 			? " (skipped)"
-	 		: "          ")
+			: "          ")
 		<< (this->swapping
 			? " (swapping frame " + std::to_string(this->swapped) + ", select other frame)"
-	 		: "                                            ")
+			: "                                            ")
 		<< std::endl;
 
 	for (int i = 0; i < this->rect.width; ++i) {
-		out << "═";
+		out << "-";
 	}
 	out << std::endl;
 

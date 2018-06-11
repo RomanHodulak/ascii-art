@@ -12,7 +12,7 @@ BmpImageSource::BmpImageSource(const string & filename) : StaticImageSource() {
 
 Frame & BmpImageSource::getFrame() {
 	if (this->data->frame == nullptr) {
-		this->data->loadFrame([this](istream & sourceStream)->Frame *{
+		this->data->loadFrame([this](istream & sourceStream) -> Frame * {
 			return this->loadFrame(sourceStream);
 		});
 	}
@@ -106,7 +106,7 @@ Frame * BmpImageSource::loadFrame(istream & sourceStream) const {
 
 	for (size_t j = 0; j < header.height; ++j) {
 		for (size_t i = 0; i < (header.width * 3); i += 3) {
-			unsigned char channels [3];
+			unsigned char channels[3];
 			sourceStream.read((char *) & channels, 3);
 
 			buffer.emplace_back(Pixel(channels, channels + 3));

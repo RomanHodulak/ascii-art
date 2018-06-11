@@ -5,7 +5,8 @@
 
 using namespace std;
 
-Player::Player(ImageSource & source) : source(source), indices(source.getFramesCount()), indicesToIndices(source.getFramesCount()) {
+Player::Player(ImageSource & source) : source(source), indices(source.getFramesCount()),
+	indicesToIndices(source.getFramesCount()) {
 	iota(indices.begin(), indices.end(), 0);
 	iota(indicesToIndices.begin(), indicesToIndices.end(), 0);
 }

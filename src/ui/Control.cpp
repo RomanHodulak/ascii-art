@@ -10,6 +10,3 @@ std::ostream & operator<<(std::ostream & out, Control & control) {
 const Rectangle & Control::getRect() const {
 	return this->rect;
 }
-
-Control::~Control() {
-}

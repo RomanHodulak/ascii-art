@@ -40,6 +40,10 @@ protected:
 
 	Frame * loadFrame(std::istream & sourceStream) const;
 
+	void attach(FrameData * data);
+
+	void detach();
+
 public:
 
 	/**
@@ -54,10 +58,6 @@ public:
 	BmpImageSource & operator=(const BmpImageSource & source);
 
 	~BmpImageSource() override;
-
-	void attach(FrameData * data);
-
-	void detach();
 
 	ImageSource * clone() const override;
 };

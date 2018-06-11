@@ -8,47 +8,47 @@ Control * FilterMenuControl::clone() const {
 }
 
 std::ostream & FilterMenuControl::print(std::ostream & out) {
-	out << "╔";
+	out << "#";
 	for (int i = 2; i < this->rect.width; ++i) {
-		out << "═";
+		out << "-";
 	}
-	out << "╗" << std::endl;
+	out << "#" << std::endl;
 
-	std::string line = "║ Choose filter to add: ";
+	std::string line = "| Choose filter to add: ";
 	out << line;
 
-	for (int k = (int) line.length() - 1; k < this->rect.width; ++k) {
+	for (int k = (int) line.length() + 1; k < this->rect.width; ++k) {
 		out << ' ';
 	}
-	out << "║" << std::endl;
+	out << "|" << std::endl;
 
 	for (size_t i = 0; i < this->items.size(); ++i) {
 		const Item & item = this->items[i];
 		int charsPrinted = 6 + (int) item.first.length();
 
-		out << "║ "
-			<< (this->selectedIndex == i ? "→ " : "  ")
+		out << "| "
+			<< (this->selectedIndex == i ? "> " : "  ")
 			<< item.first
-			<< (this->selectedIndex == i ? " ←" : "  ");
+			<< (this->selectedIndex == i ? " <" : "  ");
 
 		for (int j = charsPrinted + 1; j < this->rect.width; ++j) {
 			out << ' ';
 		}
 
-		out << "║" << std::endl;
+		out << "|" << std::endl;
 	}
 
-	out << "╚";
+	out << "#";
 	for (int i = 2; i < this->rect.width; ++i) {
-		out << "═";
+		out << "-";
 	}
-	out << "╝" << std::endl;
+	out << "#" << std::endl;
 
 	return out;
 }
 
-void FilterMenuControl::addItem(const std::string & title, std::function<void()> onEnter) {
-	this->items.emplace_back(std::make_pair(title, onEnter));
+void FilterMenuControl::addItem(const std::string & title, std::function<void()> onAccept) {
+	this->items.emplace_back(std::make_pair(title, onAccept));
 }
 
 void FilterMenuControl::up() {

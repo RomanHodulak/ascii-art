@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Editor.h"
 
-int main(int argc, char * argv []) {
+int main(int argc, char * argv[]) {
 	if (argc < 3) {
 		std::cout << "Usage: " << argv[0] << " <map> <image> [more_images...]" << std::endl;
 

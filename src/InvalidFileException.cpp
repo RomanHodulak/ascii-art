@@ -12,7 +12,8 @@ InvalidFileException::InvalidFileException(const std::string & type, const std::
 	this->message += "\".";
 }
 
-InvalidFileException::InvalidFileException(const std::string & type, const std::string & file, const std::string & reason) {
+InvalidFileException::InvalidFileException(const std::string & type, const std::string & file,
+	const std::string & reason) {
 	this->message = "Invalid ";
 	this->message += type;
 	this->message += " file \"";

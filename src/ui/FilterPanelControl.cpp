@@ -14,7 +14,7 @@ std::ostream & FilterPanelControl::print(std::ostream & out) {
 	out << " Filters" << endl;
 
 	for (int i = 0; i < this->rect.width; ++i) {
-		out << "═";
+		out << "-";
 	}
 	out << endl;
 
@@ -22,12 +22,7 @@ std::ostream & FilterPanelControl::print(std::ostream & out) {
 		FilterMenuItem & item = this->filterMenuItems[i];
 
 		if (i == this->selectedIndex) {
-			if (this->editMode) {
-				out << " Set";
-			}
-			else {
-				out << " → " << item.title;
-			}
+			out << " > " << item.title;
 		}
 		else {
 			out << ' ' << item.title;
@@ -37,8 +32,8 @@ std::ostream & FilterPanelControl::print(std::ostream & out) {
 			out << ": " << std::to_string(item.getter(this->filter.getFilterAt(i))).substr(0, 5);
 		}
 
-		if (i == this->selectedIndex && !this->editMode) {
-			out << " ←     " << endl;
+		if (i == this->selectedIndex) {
+			out << " <     " << endl;
 		}
 		else {
 			out << "             " << endl;
@@ -78,26 +73,20 @@ void FilterPanelControl::deleteSelected() {
 	}
 }
 
-bool FilterPanelControl::editSelected() {
-	if (this->editMode) return false;
-
-	if (this->filterMenuItems[this->selectedIndex].setter != nullptr) {
-		this->editMode = true;
-	}
-
-	return this->editMode;
-}
-
-void FilterPanelControl::leaveEditMode() {
-	this->editMode = false;
+bool FilterPanelControl::isEditable() {
+	return (this->filterMenuItems[this->selectedIndex].setter != nullptr);
 }
 
 void FilterPanelControl::editInc() {
+	if (!this->isEditable()) return;
+
 	double val = this->filterMenuItems[this->selectedIndex].getter(this->filter.getFilterAt(this->selectedIndex));
 	this->filterMenuItems[this->selectedIndex].setter(this->filter.getFilterAt(this->selectedIndex), val + 0.1);
 }
 
 void FilterPanelControl::editDec() {
+	if (!this->isEditable()) return;
+
 	double val = this->filterMenuItems[this->selectedIndex].getter(this->filter.getFilterAt(this->selectedIndex));
 	this->filterMenuItems[this->selectedIndex].setter(this->filter.getFilterAt(this->selectedIndex), val - 0.1);
 }
