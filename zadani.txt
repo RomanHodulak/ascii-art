@@ -1,0 +1,27 @@
+ASCII art
+
+Program:
+* Z jednoho až n obrázků formátu BMP načte data a ty zobrazí v ASCII znacích v odstínech šedi.
+* Načte mapování světlosti pixelů na ASCII znaky ze souboru.
+* Z příkazové řádky získá název souboru s mapou a jeden až n názvů souborů s obrázky.
+* Umožňí aplikování efektů negativ a zesvětlení/zmavení obrázku.
+* Umožní "spuštění" animace v případě více načtených obrázků a triviální editaci animace v přehození či mazání jednotlivých snímků z přehrávání.
+
+Program bude mít implementován parser BMP obrázků.
+
+V programu půjde přehrávat animaci pozpátku, přeskakovat na konkrétní snímek a měnit rychlost přehrávání
+
+K vykreslování využije program knihovnu NCurses.
+
+Ovládání:
+* Escape: Ukončit program.
+* Šipky doleva/doprava: Skočit na předchozí/následující snímek.
+* Šipky nahoru/dolu: Navigace v UI.
+* Mezerník: Přehrát/pozastavit přehrávání animace.
+* Ctrl + Mezerník: Přehrát/pozastavit přehrávání animace. Přehrávání bude pozpátku.
+* F: Zvýšení snímkové frekvence.
+* Ctrl + F: Snížení snímkové frekvence.
+* X: Označení/odznačení aktuálního snímku jako přeskočen (smazán) z přehrávání.
+* S: Označit snímek k prohození. Stisk poprvé označí jeden snímek, stisk podruhé označí druhý snímek, se kterým se první vymění.
+* Enter: Provést akci v menu.
+* Delete: Smazání vybraného filtru.
