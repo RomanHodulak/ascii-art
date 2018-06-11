@@ -8,7 +8,7 @@ run:
 
 doc:
 	mkdir -p doc
-	touch doc/todo
+	doxygen examples/Doxyfile
 
 clean:
 	rm -rf doc hodulrom
