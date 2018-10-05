@@ -43,7 +43,7 @@ make clean
 
 ## Controls
 
-| Key               | Decription                                                                                                      |
+| Key               | Description                                                                                                      |
 |-------------------|-----------------------------------------------------------------------------------------------------------------|
 | Escape            | Exit.                                                                                                           |
 | Arrows left/right | Jump to previous/following frame.                                                                               |
